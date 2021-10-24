@@ -60,4 +60,8 @@ request.onsuccess( event => {
     }
 })
 
+request.onerror = (event => {
+    console.log(`${event.target.errorCode}`)
+})
+
 window.addEventListener("online", checkDatabase)
