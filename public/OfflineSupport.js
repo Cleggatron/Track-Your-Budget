@@ -59,7 +59,7 @@ function checkDatabase() {
     }
 }
 
-export const saveRecord = (record) => {
+export function saveRecord(record){
     console.log("Saving offline");
 
     //open a transaction

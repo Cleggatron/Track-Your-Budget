@@ -7,7 +7,7 @@ const config = {
     },
     output: {
         path: __dirname + "./public/dist",
-        filename: "indexed.bundle.js"
+        filename: "index.bundle.js"
     },
     mode: "development",
     module: {
@@ -25,7 +25,7 @@ const config = {
         ]
     },
     plugins: [
-        new WebpackPwaManifest({
+        new WebpackPWAManifest({
             fingerprints: false,
             name: 'Budget Tracker',
             short_name: 'Budget Tracker',
