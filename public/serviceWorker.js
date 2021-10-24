@@ -12,7 +12,6 @@ const DATA_CACHE_NAME = "data-cache-v1";
 
 //install our cache files
 self.addEventListener("install", (event) => {
-    console.log("install")
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             return cache.addAll(CACHE_FILES);
@@ -23,7 +22,6 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-    console.log("activate")
     event.waitUntil(
         caches.keys().then(keyList => {
             return Promise.all(
@@ -40,7 +38,6 @@ self.addEventListener("activate", (event) => {
 })
 
 self.addEventListener("fetch", (event) => {
-    console.log("debugging")
     if(event.request.url.includes("/api/")){
         event.respondWith(
             caches.open(DATA_CACHE_NAME).then(cache => {
