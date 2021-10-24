@@ -50,6 +50,14 @@ const saveRecord = (record) => {
     store.add(record)
 }
 
+request.onsuccess( event => {
+    console.log("Sucess");
+    db.event.target.result;
 
+    if(navigator.onLine){
+        console.log("Backend Online");
+        checkDatabase()
+    }
+})
 
 window.addEventListener("online", checkDatabase)
