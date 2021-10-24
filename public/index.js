@@ -1,3 +1,5 @@
+import {saveRecord} from "./offlineSupport"
+
 let transactions = [];
 let myChart;
 
