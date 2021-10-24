@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 let db;
 let budgetVersion;
 
@@ -29,10 +31,30 @@ function checkDatabase() {
     //Get all our records
     const getAll = store.getAll();
 
-    //add our stored IndexDB entries into the online DB
+    
     getAll.onsuccess = function() {
+        //add extant stored IndexDB entries into the online DB when back online
         if(getAll.result.length > 0){
-            //TO DO
+            fetch("/api/transaction/bulk", {
+                method: "POST",
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+            .then((response) => {
+                //IF the return response is not empty then the addition worked
+                if(response.length !==0){
+                    //Open another transation to the budget store with read write
+                    transaction = db.transaction(["BudgetStore"], "readwrite");
+                    const currentStore = transaction.objectStore("BudgetStore");
+
+                    currentStore.clear();
+                    console.log("IndexedDB cleared")
+                }
+
+            })
         }
     }
 }
