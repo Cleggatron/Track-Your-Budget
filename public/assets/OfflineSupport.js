@@ -3,15 +3,15 @@ let budgetVersion;
 
 const request = indexedDB.open("BudgetDB", budgetVersion || 21);
 
-request.onupgradeneeded = function(event) {
+request.onupgradeneeded = function(e) {
     console.log("IndexDB upgrade needed");
 
-    const { oldVersion } = event;
+    const { oldVersion } = e;
     const newVersion = e.newVersion || db.version;
 
     console.log(`DB Updated from version ${oldVersion} to ${newVersion}`)
 
-    db = event.target.result;
+    db = e.target.result;
 
     if(db.objectStoreNames.length === 0) {
         db.createObjectStore("BudgetStore", {autoIncrement : true})
@@ -70,18 +70,18 @@ export function saveRecord(record){
     store.add(record)
 }
 
-request.onsuccess( event => {
+request.onsuccess = function (e){
     console.log("Sucess");
-    db.event.target.result;
+    db = e.target.result;
 
     if(navigator.onLine){
         console.log("Backend Online");
         checkDatabase()
     }
-})
+}
 
-request.onerror = (event => {
-    console.log(`${event.target.errorCode}`)
-})
+request.onerror = function(e) {
+    console.log(`${e.target.errorCode}`)
+}
 
 window.addEventListener("online", checkDatabase)
