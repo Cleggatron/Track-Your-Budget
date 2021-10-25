@@ -3,10 +3,10 @@ const path = require("path")
 
 const config = {
     entry: {
-        app: "./public/index.js",
+        app: "./public/assets/index.js",
     },
     output: {
-        path: __dirname + "./public/dist",
+        path: path.resolve(__dirname,"./public/dist"),
         filename: "index.bundle.js"
     },
     mode: "development",
@@ -36,7 +36,7 @@ const config = {
             start_url: '/',
             icons: [
               {
-                src: path.resolve('public/icons/icon-512x512.png'),
+                src: path.resolve('public/assets/icons/icon-512x512.png'),
                 sizes: [192, 512],
                 destination: path.join('assets', 'icons'),
               },
