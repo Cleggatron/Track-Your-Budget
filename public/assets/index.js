@@ -1,4 +1,4 @@
-import {saveRecord} from "./offlineSupport"
+import {saveRecord} from "./offlineSupport.js"
 
 let transactions = [];
 let myChart;
